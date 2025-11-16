@@ -290,6 +290,72 @@ export default function Index() {
               </Card>
             ))}
           </div>
+
+          <section className="mt-16 animate-fade-in">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-2">Отзывы клиентов</h2>
+              <p className="text-muted-foreground text-lg">Что говорят о нас наши гости</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="p-6 animate-fade-in" style={{ animationDelay: '0s' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">
+                    👨
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Алексей М.</h3>
+                    <div className="flex gap-1 text-yellow-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  Заказываю здесь регулярно! Всегда быстрая доставка, бургеры горячие и очень вкусные. Особенно нравится Двойной Биг Бургер — сытный и сочный!
+                </p>
+              </Card>
+
+              <Card className="p-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">
+                    👩
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Мария К.</h3>
+                    <div className="flex gap-1 text-yellow-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  Лучшая пицца в городе! Заказала Пепперони — тесто тонкое, начинки много. Доставили ровно через 30 минут, как и обещали. Рекомендую!
+                </p>
+              </Card>
+
+              <Card className="p-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">
+                    👨
+                  </div>
+                  <div>
+                    <h3 className="font-bold">Дмитрий П.</h3>
+                    <div className="flex gap-1 text-yellow-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className="fill-current" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  Отличный сервис! Курьер приехал вовремя, еда была упакована идеально. Наггетсы и картофель фри — просто огонь. Спасибо за качество!
+                </p>
+              </Card>
+            </div>
+          </section>
         </TabsContent>
       </main>
 
