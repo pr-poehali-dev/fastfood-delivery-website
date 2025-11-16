@@ -4,6 +4,11 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 
 interface MenuItem {
@@ -30,6 +35,9 @@ interface CourierOrder {
 export default function Index() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [activeTab, setActiveTab] = useState('menu');
+  const [orderDialogOpen, setOrderDialogOpen] = useState(false);
+  const [orderForm, setOrderForm] = useState({ name: '', phone: '', address: '', comment: '' });
+  const { toast } = useToast();
 
   const menuItems: MenuItem[] = [
     { id: 1, name: 'Чизбургер Классик', price: 350, category: 'Бургеры', image: '🍔', description: 'Сочная говяжья котлета, сыр чеддер' },
@@ -160,7 +168,11 @@ export default function Index() {
                         <span className="text-lg font-semibold">Итого:</span>
                         <span className="text-2xl font-bold text-primary">{cartTotal} ₽</span>
                       </div>
-                      <Button className="w-full h-12 text-lg" size="lg">
+                      <Button 
+                        className="w-full h-12 text-lg" 
+                        size="lg"
+                        onClick={() => setOrderDialogOpen(true)}
+                      >
                         Оформить заказ
                       </Button>
                     </div>
@@ -305,6 +317,84 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      <Dialog open={orderDialogOpen} onOpenChange={setOrderDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">Оформление заказа</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Ваше имя</Label>
+              <Input 
+                id="name" 
+                placeholder="Иван Иванов"
+                value={orderForm.name}
+                onChange={(e) => setOrderForm(prev => ({ ...prev, name: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">Телефон</Label>
+              <Input 
+                id="phone" 
+                type="tel"
+                placeholder="+7 (900) 123-45-67"
+                value={orderForm.phone}
+                onChange={(e) => setOrderForm(prev => ({ ...prev, phone: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="address">Адрес доставки</Label>
+              <Input 
+                id="address" 
+                placeholder="ул. Пушкина, д. 10, кв. 5"
+                value={orderForm.address}
+                onChange={(e) => setOrderForm(prev => ({ ...prev, address: e.target.value }))}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="comment">Комментарий к заказу</Label>
+              <Textarea 
+                id="comment" 
+                placeholder="Позвоните за 5 минут до приезда"
+                value={orderForm.comment}
+                onChange={(e) => setOrderForm(prev => ({ ...prev, comment: e.target.value }))}
+                rows={3}
+              />
+            </div>
+            <div className="pt-4 border-t">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm text-muted-foreground">Итого к оплате:</span>
+                <span className="text-2xl font-bold text-primary">{cartTotal} ₽</span>
+              </div>
+              <Button 
+                className="w-full h-12 text-lg" 
+                size="lg"
+                onClick={() => {
+                  if (!orderForm.name || !orderForm.phone || !orderForm.address) {
+                    toast({
+                      title: "Заполните все поля",
+                      description: "Пожалуйста, укажите имя, телефон и адрес доставки",
+                      variant: "destructive"
+                    });
+                    return;
+                  }
+                  toast({
+                    title: "Заказ принят! 🎉",
+                    description: `Ваш заказ на сумму ${cartTotal} ₽ будет доставлен через 30-40 минут`,
+                  });
+                  setOrderDialogOpen(false);
+                  setCart([]);
+                  setOrderForm({ name: '', phone: '', address: '', comment: '' });
+                }}
+              >
+                <Icon name="CheckCircle" size={20} className="mr-2" />
+                Подтвердить заказ
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
