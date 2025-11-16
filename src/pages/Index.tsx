@@ -191,6 +191,41 @@ export default function Index() {
             <p className="text-muted-foreground text-lg">Ваш заказ уже через 30 минут</p>
           </div>
 
+          <section className="mb-12 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card className="bg-gradient-to-br from-primary to-orange-600 text-white overflow-hidden relative">
+                <div className="p-6 relative z-10">
+                  <Badge className="bg-white text-primary mb-3">
+                    <Icon name="Flame" size={14} className="mr-1" />
+                    Горячее предложение
+                  </Badge>
+                  <h3 className="text-2xl font-bold mb-2">Комбо на двоих -30%</h3>
+                  <p className="text-white/90 mb-4">2 бургера + картофель фри + 2 напитка</p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-bold">890 ₽</span>
+                    <span className="text-lg line-through opacity-75">1270 ₽</span>
+                  </div>
+                </div>
+                <div className="absolute right-0 bottom-0 text-9xl opacity-20">🍔</div>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-yellow-400 to-orange-400 text-secondary overflow-hidden relative">
+                <div className="p-6 relative z-10">
+                  <Badge className="bg-secondary text-white mb-3">
+                    <Icon name="Gift" size={14} className="mr-1" />
+                    Подарок
+                  </Badge>
+                  <h3 className="text-2xl font-bold mb-2">Пицца + напиток в подарок</h3>
+                  <p className="text-secondary/80 mb-4">При заказе любой пиццы — напиток бесплатно</p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl font-bold">от 650 ₽</span>
+                  </div>
+                </div>
+                <div className="absolute right-0 bottom-0 text-9xl opacity-20">🍕</div>
+              </Card>
+            </div>
+          </section>
+
           <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
             {categories.map(category => (
               <Button
